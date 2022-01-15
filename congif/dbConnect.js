@@ -1,0 +1,26 @@
+import mongoose from 'mongoose'
+const connection={}
+async function dbConnect(){
+    if(connection.isConnected)
+
+    {
+        return;
+    }
+    const db=await mongoose.connect(process.env.DB_LOCAL_URI,{
+        useNewUrlParser:true,
+        useUnifiedTopology:true,
+    })
+    connection.isConnected=db.connections[0].readyState
+}
+// const  dbConnect =()=>{
+//     if(mongoose.connection.readyState > 1){
+//   return
+//     }
+//     mongoose.connect(process.env.DB_LOCAL_URI,{
+//         useNewUrlParser:true,
+//         useUnifiedTopology:true,
+//         useFindAndModify:false,
+//         useCreatendex:true
+//     }).then(con=>console.log('connected to local database'))
+// }
+export default dbConnect
